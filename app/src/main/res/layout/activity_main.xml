@@ -9,40 +9,43 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.iekie.font.MainActivity">
-    <Button
-        android:id="@+id/btn1"
-        android:text="invokeSubProcess"
-        android:textAllCaps="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="invokeSubProcess"/>
+
 
     <Button
-        android:id="@+id/btn2"
-        android:layout_below="@+id/btn1"
-        android:layout_marginTop="10dp"
-        android:text="startService1"
-        android:textAllCaps="false"
+        android:id="@+id/btn5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="startService1"/>
+        android:onClick="sendPushMessage"
+        android:text="SendPushMessage"
+        android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/btn3"
-        android:layout_below="@+id/btn2"
-        android:layout_marginTop="10dp"
-        android:text="loadClass"
-        android:textAllCaps="false"
+        android:id="@+id/btn6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="loadClass"/>
+        android:layout_below="@+id/btn5"
+        android:layout_marginTop="10dp"
+        android:onClick="loadPlugin"
+        android:text="LoadPlugin"
+        android:textAllCaps="false" />
+
     <Button
-        android:id="@+id/btn4"
-        android:layout_below="@+id/btn3"
-        android:layout_marginTop="10dp"
-        android:text="startProxyService"
-        android:textAllCaps="false"
+        android:id="@+id/btn7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="startProxyService"/>
+        android:layout_below="@+id/btn6"
+        android:layout_marginTop="10dp"
+        android:onClick="stopPlugin"
+        android:text="stopPlugin"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn7"
+        android:layout_marginTop="10dp"
+        android:onClick="saveTestData"
+        android:text="saveTestData"
+        android:textAllCaps="false" />
 </RelativeLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.iekie.pluginloader">
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+        <service
+            android:name=".Process.SubProcessService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin" />
+
+        <receiver android:name=".internal.LoadReceiver">
+            <intent-filter>
+                <action android:name="me.plugin.broadcast.load.success" />
+                <action android:name="me.plugin.broadcast.load.fail" />
+                <action android:name="me.plugin.broadcast.load.remove" />
+                <action android:name="me.plugin.broadcast.load.download_success" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Process.ProxyService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin" />
+        <service
+            android:name=".Process.SubProcessService1"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin1" />
+        <service
+            android:name=".Process.SubProcessService2"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin2" />
+        <service
+            android:name=".Process.SubProcessService3"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin3" />
+        <service
+            android:name=".Process.SubProcessService4"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin4" />
+        <service
+            android:name=".Process.SubProcessService5"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin5" />
+        <service
+            android:name=".Process.ProxyService1"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin1"/>
+        <service
+            android:name=".Process.ProxyService2"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin2"/>
+        <service
+            android:name=".Process.ProxyService3"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin3"/>
+        <service
+            android:name=".Process.ProxyService4"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin4"/>
+        <service
+            android:name=".Process.ProxyService5"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":plugin5">
+        </service>
+    </application>
+
+</manifest>
