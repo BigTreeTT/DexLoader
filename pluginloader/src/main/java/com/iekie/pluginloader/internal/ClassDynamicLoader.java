@@ -6,6 +6,7 @@ import android.os.Process;
 
 import com.iekie.pluginloader.download.PluginInfo;
 import com.iekie.pluginloader.util.LogUtil;
+import com.iekie.pluginloader.util.ProcessUtil;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -62,6 +63,7 @@ public class ClassDynamicLoader {
         intent.putExtra("pID", Process.myPid());
         intent.putExtra("dbID",pluginInfo.getId());
         intent.putExtra("name",pluginInfo.getName());
+        intent.putExtra("processName", ProcessUtil.currentProcessName(context));
         context.sendBroadcast(intent);
     }
     public static void loadFail(Context context,PluginInfo pluginInfo){

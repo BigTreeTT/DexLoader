@@ -64,15 +64,15 @@ import java.lang.reflect.Method;
             String currentProcessName = ProcessUtil.currentProcessName(mContext);
             if (currentProcessName == null){
                 proxyClazz = ProxyService.class;
-            }else if (currentProcessName.equals("plugin1")){
+            }else if (currentProcessName.equals("com.iekie.font:plugin1")){
                 proxyClazz = ProxyService1.class;
-            }else if (currentProcessName.equals("plugin2")){
+            }else if (currentProcessName.equals("com.iekie.font:plugin2")){
                 proxyClazz = ProxyService2.class;
-            }else if (currentProcessName.equals("plugin3")){
+            }else if (currentProcessName.equals("com.iekie.font:plugin3")){
                 proxyClazz = ProxyService3.class;
-            }else if (currentProcessName.equals("plugin4")){
+            }else if (currentProcessName.equals("com.iekie.font:plugin4")){
                 proxyClazz = ProxyService4.class;
-            }else if (currentProcessName.equals("plugin5")){
+            }else if (currentProcessName.equals("com.iekie.font:plugin5")){
                 proxyClazz = ProxyService5.class;
             }else {
                 proxyClazz = ProxyService.class;
@@ -80,6 +80,9 @@ import java.lang.reflect.Method;
             ComponentName componentName = new ComponentName(stubPackage, proxyClazz.getName());
             newIntent.setComponent(componentName);
 
+            Log.i(TAG,"proxy service name "+ proxyClazz.getName());
+            Log.i(TAG,"current process "+currentProcessName);
+            Log.i(TAG,"current process "+" "+currentProcessName.equals("plugin1"));
             // 把我们原始要启动的TargetService先存起来
             newIntent.putExtra(AMSHookHelper.EXTRA_TARGET_INTENT, integerIntentPair.second);
 
@@ -100,7 +103,7 @@ import java.lang.reflect.Method;
             if (preLoadPckName == null){
                 return method.invoke(mBase, args);
             }
-
+            Log.i(TAG,"current process "+ProcessUtil.currentProcessName(mContext));
             if (!preLoadPckName.equals(PluginManagerImpl.getInstance().getContext().getPackageName())) {
                 // 插件的intent才做hook
                 Log.v(TAG, "hook method stopService success");

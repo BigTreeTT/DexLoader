@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.iekie.pluginloader.download.DownloadState;
-import com.iekie.pluginloader.download.LoadState;
 import com.iekie.pluginloader.download.PluginInfo;
 import com.iekie.pluginloader.util.LogUtil;
 
@@ -141,8 +140,7 @@ public class PluginDataManager {
             boolean needLoad = false;
             for (PluginInfo info : all) {
                 LogUtil.i("loader","all "+info.toString());
-                if (DownloadState.FINISHED.value() == info.getDownloadState() &&
-                        LoadState.WAITING.value() == info.getLoadState()) {
+                if (DownloadState.FINISHED.value() == info.getDownloadState()) {
                     needLoad = true;
                 }
                 if (needLoad) {

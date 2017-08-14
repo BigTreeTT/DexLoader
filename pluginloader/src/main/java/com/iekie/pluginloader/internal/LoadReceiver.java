@@ -19,8 +19,9 @@ public class LoadReceiver extends BroadcastReceiver {
             int pID = intent.getIntExtra("pID",0);
             String dbID = intent.getStringExtra("dbID");
             String name = intent.getStringExtra("name");
+            String processName = intent.getStringExtra("name");
             PluginManagerImpl.RunningPlugin runningPlugin =
-                    new PluginManagerImpl.RunningPlugin(dbID,pID,name);
+                    new PluginManagerImpl.RunningPlugin(dbID,pID,name,processName);
             PluginManagerImpl.getInstance().addRunningPlugin(runningPlugin);
         }else if (action.equals("me.plugin.broadcast.load.fail")){
 

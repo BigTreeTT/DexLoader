@@ -56,13 +56,14 @@ public class PluginManagerImpl implements PluginManager {
     public void init(Context context) {
         LogUtil.i("loader", "PluginManager init start ----------");
         setContext(context);
+        x.Ext.init((Application) context.getApplicationContext());
+        dataManager = PluginDataManager.getInstance();
+
         if (ProcessUtil.isMainProcess(context)) {
-            x.Ext.init((Application) context.getApplicationContext());
-            dataManager = PluginDataManager.getInstance();
             PDownloadManager pDownloadManager = PDownloadManager.getInstance();
             pDownloadManager.setContext(context);
             pDownloadManager.continueDownload();
-            loadPlugin();
+            //loadPlugin();
         }
 
         try {
@@ -112,7 +113,6 @@ public class PluginManagerImpl implements PluginManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void preLoadPlugin(Context context){
@@ -162,6 +162,7 @@ public class PluginManagerImpl implements PluginManager {
     public void stopPlugin() {
         for (RunningPlugin runningPlugin : runningPlugins) {
             android.os.Process.killProcess(runningPlugin.pID);
+            ProcessManager.getInstance().removeAll();
         }
         runningPlugins.clear();
     }
@@ -174,6 +175,8 @@ public class PluginManagerImpl implements PluginManager {
         RunningPlugin runningPlugin = getRunningPlugin(plugin.getId());
         if (runningPlugin != null){
             android.os.Process.killProcess(runningPlugin.pID);
+            ProcessManager.getInstance().removeRunningService(runningPlugin.processName);
+            runningPlugins.remove(runningPlugin);
         }
     }
 
@@ -202,6 +205,9 @@ public class PluginManagerImpl implements PluginManager {
                     result.add(plugin);
                 }
             }
+            if (runningPlugins.size() == 0){
+                result.addAll(plugins);
+            }
         }
         return result;
     }
@@ -209,7 +215,7 @@ public class PluginManagerImpl implements PluginManager {
     private void loadPluginInSubProcess(Context context, PluginInfo info) {
         ProcessManager processManager = ProcessManager.getInstance();
         Class<? extends SubProcessService> serviceClazz = processManager.getFreeServiceClass();
-        Intent intent = new Intent(context, SubProcessService.class);
+        Intent intent = new Intent(context, serviceClazz);
         intent.putExtra("info", info);
         context.startService(intent);
         LogUtil.i("loader", "host loadPluginInSubProcess");
@@ -255,15 +261,17 @@ public class PluginManagerImpl implements PluginManager {
     private ArrayList<RunningPlugin> runningPlugins = new ArrayList<>();
 
     public static class RunningPlugin {
-        public RunningPlugin(String dbID, int pID, String name) {
+        public RunningPlugin(String dbID, int pID, String name,String processName) {
             this.dbID = dbID;
             this.pID = pID;
             this.name = name;
+            this.processName = processName;
         }
 
         public String dbID;
         public int pID;
         public String name;
+        public String processName;
     }
     private RunningPlugin getRunningPlugin(String dbID){
         for (RunningPlugin runningPlugin:runningPlugins){
